@@ -22,6 +22,12 @@ module Spotdog
     end
 
     describe "#spot_price_history" do
+      %i(instance_types max_results product_descriptions start_time end_time).each do |name|
+        let(name) do
+          nil
+        end
+      end
+
       let(:m3xlarge_suse_classic_1c) do
         {
           instance_type: "m3.xlarge",
@@ -65,7 +71,9 @@ module Spotdog
       end
 
       it "should return Array of Hash" do
-        expect(ec2.spot_price_history).to eq spot_price_history
+        expect(
+          ec2.spot_price_history(instance_types, max_results, product_descriptions, start_time, end_time)
+        ).to eq spot_price_history
       end
     end
   end
