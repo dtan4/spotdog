@@ -8,23 +8,28 @@ module Spotdog
     end
 
     def post_prices(spot_prices)
-      groups_from(spot_prices).each { |key, prices| @client.emit_points(key, points_of(prices)) }
+      groups_from(spot_prices).each { |metric_name, prices| @client.emit_points(metric_name, points_of(prices)) }
     end
 
     private
 
     def groups_from(spot_prices)
       spot_prices.inject({}) do |result, spot_price|
-        key = key_of(spot_price)
-        result[key] ||= []
-        result[key] << spot_price
+        metric_name = metric_name_of(spot_price)
+        result[metric_name] ||= []
+        result[metric_name] << spot_price
         result
       end
     end
 
-    def key_of(spot_price)
+    def metric_name_of(spot_price)
       # "spotinstance.c4_xlarge.linux_vpc.ap-northeast-1b"
-      "#{@prefix}.#{spot_price[:instance_type].sub(".", "_")}.#{os_type_of(spot_price)}.#{spot_price[:availability_zone]}"
+      [
+        @prefix,
+        spot_price[:instance_type].sub(".", "_"),
+        os_type_of(spot_price),
+        spot_price[:availability_zone].gsub("-", "_")
+      ].join(".")
     end
 
     def machine_os_of(spot_price)
