@@ -3,10 +3,11 @@
 [![Build Status](https://travis-ci.org/dtan4/spotdog.svg?branch=ec2-class)](https://travis-ci.org/dtan4/spotdog)
 [![Code Climate](https://codeclimate.com/github/dtan4/spotdog/badges/gpa.svg)](https://codeclimate.com/github/dtan4/spotdog)
 [![Test Coverage](https://codeclimate.com/github/dtan4/spotdog/badges/coverage.svg)](https://codeclimate.com/github/dtan4/spotdog/coverage)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/spotdog`. To experiment with that code, run `bin/console` for an interactive prompt.
+__Spotdog__ is a command line tool to send EC2 Spot Instance Pricing History to Datadog. Spotdog enables us to monitor pricing history on Datadog.
 
-TODO: Delete this and the text above, and describe your gem
+(screenshot)
 
 ## Installation
 
@@ -26,7 +27,40 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```bash
+$ spotdog help
+Commands:
+  spotdog help [COMMAND]  # Describe available commands or one specific command
+  spotdog send            # Send spot instance price history
+```
+
+### `$ spotdog send`
+
+Send spot instance price history
+
+```bash
+$ spotdog help send
+Usage:
+  spotdog send
+
+Options:
+  i, [--instance-types=INSTANCE_TYPES]              # List of instance types
+  m, [--max-results=N]                              # Number of results
+  p, [--product-descriptions=PRODUCT_DESCRIPTIONS]  # List of product descriptions
+  s, [--start-time=START_TIME]                      # The time which to start retriving the prices
+  e, [--end-time=END_TIME]                          # The time which to stop retriving the prices
+```
+
+- `-i`, `--instance-type`
+ - List of instance types, like `m4.large,c4.xlarge`.
+- `-m`, `--max-results`
+ - Number of results
+- `-p`, `--product-descriptions`
+ - List of product descriptions, like `linux_vpc,suse_vpc`. These values are allowed: `linux_vpc`, `linux_classic`, `suse_vpc`, `suse_classic`, `windows_vpc` and `windows_classic`.
+- `-s`, `--start-time`
+ - The time which to start retriving the prices, like `2015-10-06 18:00 JST`
+- `-e`, `--end_time`
+ - The time which to stop retriving the prices, like `2015-10-06 19:00 JST`
 
 ## Development
 
@@ -41,4 +75,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/dtan4/
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
