@@ -9,21 +9,22 @@ module Spotdog
       windows_classic: "Windows",
     }.freeze
 
-    def self.spot_price_history(client: Aws::EC2::Client.new)
-      self.new(client).spot_price_history
+    def self.spot_price_history(client: Aws::EC2::Client.new, instance_types: nil, max_results: nil,
+      product_descriptions: nil, start_time: nil, end_time: nil)
+      self.new(client).spot_price_history(instance_types, max_results, product_descriptions, start_time, end_time)
     end
 
     def initialize(client)
       @client = client
     end
 
-    def spot_price_history(opts = {})
+    def spot_price_history(instance_types, max_results, product_descriptions, start_time, end_time)
       @client.describe_spot_price_history(
-        instance_types: opts[:instance_types],
-        max_results: opts[:max_results],
-        product_descriptions: opts[:product_descriptions],
-        start_time: opts[:start_time],
-        end_time: opts[:end_time],
+        instance_types: instance_types,
+        max_results: max_results,
+        product_descriptions: product_descriptions,
+        start_time: start_time,
+        end_time: end_time,
       ).spot_price_history.map(&:to_h)
     end
   end
