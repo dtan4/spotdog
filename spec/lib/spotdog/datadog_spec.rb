@@ -41,11 +41,22 @@ module Spotdog
         }
       end
 
+      let(:r3xlarge_suse_vpc_1c) do
+        {
+          instance_type: "r3.xlarge",
+          product_description: "SUSE Linux (Amazon VPC)",
+          spot_price: "1.343600",
+          timestamp: Time.parse("2015-10-06 05:10:52 UTC"),
+          availability_zone: "ap-northeast-1c",
+        }
+      end
+
       let(:spot_prices) do
         [
           c4xlarge_linux_vpc_1b_1,
           c4xlarge_linux_vpc_1b_2,
           m4large_windows_classic_1c,
+          r3xlarge_suse_vpc_1c,
         ]
       end
 
@@ -62,6 +73,12 @@ module Spotdog
         ]
       end
 
+      let(:r3xlarge_points) do
+        [
+          [Time.parse("2015-10-06 05:10:52 UTC"), 1.3436],
+        ]
+      end
+
       before do
         allow_any_instance_of(Dogapi::Client).to receive(:emit_point).and_return(nil)
       end
@@ -74,6 +91,10 @@ module Spotdog
         expect_any_instance_of(Dogapi::Client).to receive(:emit_points).with(
           "spotinstance.m4.large.windows_classic.ap-northeast-1c",
           m4large_points
+        )
+        expect_any_instance_of(Dogapi::Client).to receive(:emit_points).with(
+          "spotinstance.r3.xlarge.suse_vpc.ap-northeast-1c",
+          r3xlarge_points
         )
         datadog.post_prices(spot_prices)
       end

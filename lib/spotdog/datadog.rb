@@ -29,14 +29,12 @@ module Spotdog
 
     def machine_os_of(spot_price)
       case spot_price[:product_description]
-      when /\ALinux/
-        "linux"
       when /\ASUSE/
         "suse"
       when /\AWindows/
         "windows"
       else
-        "unknown"
+        "linux"
       end
     end
 
