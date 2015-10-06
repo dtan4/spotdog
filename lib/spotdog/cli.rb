@@ -15,7 +15,6 @@ module Spotdog
         start_time: options[:start_time] ? Time.parse(options[:start_time]): nil,
         end_time: options[:end_time] ? Time.parse(options[:end_time]) : nil,
       )
-      require 'pry'; binding.pry
       Spotdog::Datadog.send_price_history(ENV["DATADOG_API_KEY"], spot_price_history)
     end
 
