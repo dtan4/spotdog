@@ -10,6 +10,17 @@ module Spotdog
       described_class.new(client)
     end
 
+    describe ".spot_price_history" do
+      before do
+        allow_any_instance_of(described_class).to receive(:spot_price_history).and_return([])
+      end
+
+      it "should create new #{described_class} instance and call #spot_price_history" do
+        expect_any_instance_of(described_class).to receive(:spot_price_history)
+        described_class.spot_price_history(client: client)
+      end
+    end
+
     describe "#spot_price_history" do
       let(:empty_args) do
         {
