@@ -7,7 +7,7 @@ module Spotdog
     end
 
     let(:datadog) do
-      described_class.new(api_key: api_key)
+      described_class.new(api_key)
     end
 
     describe "#post_prices" do

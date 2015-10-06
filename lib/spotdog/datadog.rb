@@ -2,7 +2,7 @@ module Spotdog
   class Datadog
     DEFAULT_PREFIX = "spotinstance"
 
-    def initialize(api_key:, prefix: DEFAULT_PREFIX)
+    def initialize(api_key, prefix: DEFAULT_PREFIX)
       @client = Dogapi::Client.new(api_key)
       @prefix = prefix
     end
