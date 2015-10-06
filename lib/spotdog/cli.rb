@@ -20,7 +20,7 @@ module Spotdog
     private
 
     def convert_product_descriptions(product_descriptions)
-      product_descriptions.map { |description| Spotdog::EC2::const_get(description.upcase) }
+      product_descriptions.map { |description| Spotdog::EC2::PRODUCT_DESCRIPTIONS[description.to_sym] }
     end
   end
 end

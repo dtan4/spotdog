@@ -1,11 +1,13 @@
 module Spotdog
   class EC2
-    LINUX_VPC = "Linux/UNIX (Amazon VPC)"
-    LINUX_CLASSIC = "Linux/UNIX"
-    SUSE_VPC = "SUSE Linux (Amazon VPC)"
-    SUSE_CLASSIC = "SUSE Linux"
-    WINDOWS_VPC = "Windows (Amazon VPC)"
-    WINDOWS_CLASSIC = "Windows"
+    PRODUCT_DESCRIPTIONS = {
+      linux_vpc: "Linux/UNIX (Amazon VPC)",
+      linux_classic: "Linux/UNIX",
+      suse_vpc: "SUSE Linux (Amazon VPC)",
+      suse_classic: "SUSE Linux",
+      windows_vpc: "Windows (Amazon VPC)",
+      windows_classic: "Windows",
+    }.freeze
 
     def self.spot_price_history(client: Aws::EC2::Client.new)
       self.new(client).spot_price_history
