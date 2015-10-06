@@ -9,6 +9,10 @@ __Spotdog__ is a command line tool to send EC2 Spot Instance Pricing History to 
 
 (screenshot)
 
+## Supported Ruby version
+
+Ruby 2.x
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -24,6 +28,18 @@ And then execute:
 Or install it yourself as:
 
     $ gem install spotdog
+
+## Prerequisites
+
+You need to set __AWS credentials__ and __Datadog API key__ as environment variables.
+
+```bash
+export AWS_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXXXX
+export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export AWS_DEFAULT_REGION=xx-yyyy-0
+
+export DATADOG_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
 
 ## Usage
 
