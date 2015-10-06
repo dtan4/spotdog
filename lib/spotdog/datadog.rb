@@ -2,8 +2,8 @@ module Spotdog
   class Datadog
     DEFAULT_PREFIX = "spotinstance"
 
-    def self.post_prices(api_key, spot_prices, prefix: DEFAULT_PREFIX)
-      self.new(api_key, prefix).post_prices(spot_prices)
+    def self.send_price_history(api_key, spot_price_history, prefix: DEFAULT_PREFIX)
+      self.new(api_key, prefix).send_price_history(spot_price_history)
     end
 
     def initialize(api_key, prefix)
@@ -11,14 +11,14 @@ module Spotdog
       @prefix = prefix
     end
 
-    def post_prices(spot_prices)
-      groups_from(spot_prices).each { |metric_name, prices| @client.emit_points(metric_name, points_of(prices)) }
+    def send_price_history(spot_price_history)
+      groups_from(spot_price_history).each { |metric_name, price_history| @client.emit_points(metric_name, points_of(price_history)) }
     end
 
     private
 
-    def groups_from(spot_prices)
-      spot_prices.inject({}) do |result, spot_price|
+    def groups_from(spot_price_history)
+      spot_price_history.inject({}) do |result, spot_price|
         metric_name = metric_name_of(spot_price)
         result[metric_name] ||= []
         result[metric_name] << spot_price
@@ -55,8 +55,8 @@ module Spotdog
       "#{machine_os_of(spot_price)}_#{machine_type_of(spot_price)}"
     end
 
-    def points_of(spot_prices)
-      spot_prices.map { |spot_price| [spot_price[:timestamp], spot_price[:spot_price].to_f] }
+    def points_of(spot_price_history)
+      spot_price_history.map { |spot_price| [spot_price[:timestamp], spot_price[:spot_price].to_f] }
     end
   end
 end

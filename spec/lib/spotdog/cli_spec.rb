@@ -6,7 +6,7 @@ module Spotdog
       described_class.new
     end
 
-    describe "#post" do
+    describe "#send" do
       let(:api_key) do
         "apikey"
       end
@@ -45,7 +45,7 @@ module Spotdog
 
       before do
         allow(Spotdog::EC2).to receive(:spot_price_history).and_return(spot_price_history)
-        allow(Spotdog::Datadog).to receive(:post_prices)
+        allow(Spotdog::Datadog).to receive(:send_price_history)
         ENV["DATADOG_API_KEY"] = api_key
       end
 
@@ -57,9 +57,9 @@ module Spotdog
           start_time: Time.parse(start_time),
           end_time: Time.parse(end_time),
         )
-        expect(Spotdog::Datadog).to receive(:post_prices).with(api_key, spot_price_history)
+        expect(Spotdog::Datadog).to receive(:send_price_history).with(api_key, spot_price_history)
 
-        cli.invoke("post", [], {
+        cli.invoke("send", [], {
           instance_types: instance_types,
           max_results: max_results,
           product_descriptions: os_types,
