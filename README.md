@@ -65,6 +65,7 @@ Options:
   p, [--product-descriptions=PRODUCT_DESCRIPTIONS]  # List of product descriptions
   s, [--start-time=START_TIME]                      # The time which to start retriving the prices
   e, [--end-time=END_TIME]                          # The time which to stop retriving the prices
+  l, [--last-minutes=N]                             # The duration in minutes which to retrive the prices
 ```
 
 - `-i`, `--instance-type`
@@ -75,8 +76,10 @@ Options:
  - List of product descriptions, like `linux_vpc,suse_vpc`. These values are allowed: `linux_vpc`, `linux_classic`, `suse_vpc`, `suse_classic`, `windows_vpc` and `windows_classic`.
 - `-s`, `--start-time`
  - The time which to start retriving the prices, like `2015-10-06 18:00 JST`
-- `-e`, `--end_time`
+- `-e`, `--end-time`
  - The time which to stop retriving the prices, like `2015-10-06 19:00 JST`
+- `-l`, `--last-minutes`
+ - The duration in minutes which to retrive the prices.
 
 ## Development
 

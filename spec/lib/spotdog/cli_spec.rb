@@ -49,23 +49,57 @@ module Spotdog
         ENV["DATADOG_API_KEY"] = api_key
       end
 
-      it "should call modules respectively" do
-        expect(Spotdog::EC2).to receive(:spot_price_history).with(
-          instance_types: ["c4.large", "c4.xlarge"],
-          max_results: max_results,
-          product_descriptions: ["Linux/UNIX (Amazon VPC)", "SUSE Linux"],
-          start_time: Time.parse(start_time),
-          end_time: Time.parse(end_time),
-        )
-        expect(Spotdog::Datadog).to receive(:send_price_history).with(api_key, spot_price_history)
+      context "when last_minutes is not specified" do
+        it "should call modules respectively" do
+          expect(Spotdog::EC2).to receive(:spot_price_history).with(
+            instance_types: ["c4.large", "c4.xlarge"],
+            max_results: max_results,
+            product_descriptions: ["Linux/UNIX (Amazon VPC)", "SUSE Linux"],
+            start_time: Time.parse(start_time),
+            end_time: Time.parse(end_time),
+          )
+          expect(Spotdog::Datadog).to receive(:send_price_history).with(api_key, spot_price_history)
 
-        cli.invoke("send", [], {
-          instance_types: instance_types,
-          max_results: max_results,
-          product_descriptions: os_types,
-          start_time: start_time,
-          end_time: end_time,
-        })
+          cli.invoke("send", [], {
+            instance_types: instance_types,
+            max_results: max_results,
+            product_descriptions: os_types,
+            start_time: start_time,
+            end_time: end_time,
+          })
+        end
+      end
+
+      context "when last_minutes is specified" do
+        let(:current_time) do
+          Time.parse("2015-10-06 18:00 JST")
+        end
+
+        let(:last_minutes) do
+          10
+        end
+
+        it "should call modules respectively with related time range" do
+          Timecop.freeze(current_time) do
+            expect(Spotdog::EC2).to receive(:spot_price_history).with(
+              instance_types: ["c4.large", "c4.xlarge"],
+              max_results: max_results,
+              product_descriptions: ["Linux/UNIX (Amazon VPC)", "SUSE Linux"],
+              start_time: current_time,
+              end_time: current_time - last_minutes * 60,
+            )
+            expect(Spotdog::Datadog).to receive(:send_price_history).with(api_key, spot_price_history)
+
+            cli.invoke("send", [], {
+              instance_types: instance_types,
+              max_results: max_results,
+              product_descriptions: os_types,
+              start_time: start_time,
+              end_time: end_time,
+              last_minutes: last_minutes,
+            })
+          end
+        end
       end
     end
   end
