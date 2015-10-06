@@ -85,8 +85,8 @@ module Spotdog
               instance_types: ["c4.large", "c4.xlarge"],
               max_results: max_results,
               product_descriptions: ["Linux/UNIX (Amazon VPC)", "SUSE Linux"],
-              start_time: current_time,
-              end_time: current_time - last_minutes * 60,
+              start_time: current_time - last_minutes * 60,
+              end_time: current_time,
             )
             expect(Spotdog::Datadog).to receive(:send_price_history).with(api_key, spot_price_history)
 

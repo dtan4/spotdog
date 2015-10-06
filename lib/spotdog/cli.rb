@@ -31,7 +31,7 @@ module Spotdog
 
     def parse_start_time(options)
       if options[:last_minutes]
-        current_time
+        current_time - options[:last_minutes] * 60
       else
         options[:start_time] ? Time.parse(options[:start_time]) : nil
       end
@@ -39,7 +39,7 @@ module Spotdog
 
     def parse_end_time(options)
       if options[:last_minutes]
-        current_time - options[:last_minutes] * 60
+        current_time
       else
         options[:end_time] ? Time.parse(options[:end_time]) : nil
       end
