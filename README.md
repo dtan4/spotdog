@@ -3,13 +3,15 @@
 [![Build Status](https://travis-ci.org/dtan4/spotdog.svg?branch=ec2-class)](https://travis-ci.org/dtan4/spotdog)
 [![Code Climate](https://codeclimate.com/github/dtan4/spotdog/badges/gpa.svg)](https://codeclimate.com/github/dtan4/spotdog)
 [![Test Coverage](https://codeclimate.com/github/dtan4/spotdog/badges/coverage.svg)](https://codeclimate.com/github/dtan4/spotdog/coverage)
+[![Dependency Status](https://gemnasium.com/dtan4/spotdog.svg)](https://gemnasium.com/dtan4/spotdog)
+[![Gem Version](https://badge.fury.io/rb/spotdog.svg)](http://badge.fury.io/rb/spotdog)
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 __Spotdog__ is a command line tool to send EC2 Spot Instance Pricing History to Datadog. Spotdog enables us to monitor pricing history on Datadog.
 
 (screenshot)
 
-## Supported Ruby version
+## Supported Ruby qversion
 
 Ruby 2.x
 
