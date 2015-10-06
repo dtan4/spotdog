@@ -23,8 +23,8 @@ module Spotdog
     end
 
     def key_of(spot_price)
-      # "spotinstance.c4xlarge.linux_vpc.ap-northeast-1b"
-      "#{@prefix}.#{spot_price[:instance_type]}.#{os_type_of(spot_price)}.#{spot_price[:availability_zone]}"
+      # "spotinstance.c4_xlarge.linux_vpc.ap-northeast-1b"
+      "#{@prefix}.#{spot_price[:instance_type].sub(".", "_")}.#{os_type_of(spot_price)}.#{spot_price[:availability_zone]}"
     end
 
     def machine_os_of(spot_price)

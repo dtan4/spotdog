@@ -85,15 +85,15 @@ module Spotdog
 
       it "should call emit_point" do
         expect_any_instance_of(Dogapi::Client).to receive(:emit_points).with(
-          "spotinstance.c4.xlarge.linux_vpc.ap-northeast-1b",
+          "spotinstance.c4_xlarge.linux_vpc.ap-northeast-1b",
           c4xlarge_points
         )
         expect_any_instance_of(Dogapi::Client).to receive(:emit_points).with(
-          "spotinstance.m4.large.windows_classic.ap-northeast-1c",
+          "spotinstance.m4_large.windows_classic.ap-northeast-1c",
           m4large_points
         )
         expect_any_instance_of(Dogapi::Client).to receive(:emit_points).with(
-          "spotinstance.r3.xlarge.suse_vpc.ap-northeast-1c",
+          "spotinstance.r3_xlarge.suse_vpc.ap-northeast-1c",
           r3xlarge_points
         )
         datadog.post_prices(spot_prices)
