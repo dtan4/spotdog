@@ -22,7 +22,7 @@ module Spotdog
         product_descriptions: opts[:product_descriptions],
         start_time: opts[:start_time],
         end_time: opts[:end_time],
-      ).spot_price_history
+      ).spot_price_history.map(&:to_h)
     end
   end
 end
