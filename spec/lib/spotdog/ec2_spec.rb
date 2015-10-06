@@ -22,94 +22,50 @@ module Spotdog
     end
 
     describe "#spot_price_history" do
-      let(:empty_args) do
+      let(:m3xlarge_suse_classic_1c) do
         {
-          instance_types: nil,
-          max_results: nil,
-          product_descriptions: nil,
-          start_time: nil,
-          end_time: nil,
+          instance_type: "m3.xlarge",
+          product_description: "SUSE Linux",
+          spot_price: "0.143600",
+          timestamp: Time.parse("2015-10-06 05:39:52 UTC"),
+          availability_zone: "ap-northeast-1c",
+        }
+      end
+
+      let(:c4xlarge_linux_vpc_1b) do
+        {
+          instance_type: "c4.xlarge",
+          product_description: "Linux/UNIX (Amazon VPC)",
+          spot_price: "0.233600",
+          timestamp: Time.parse("2015-10-06 05:29:52 UTC"),
+          availability_zone: "ap-northeast-1b",
+        }
+      end
+
+      let(:m4large_windows_classic_1c) do
+        {
+          instance_type: "m4.large",
+          product_description: "Windows",
+          spot_price: "1.143600",
+          timestamp: Time.parse("2015-10-06 05:20:52 UTC"),
+          availability_zone: "ap-northeast-1c",
         }
       end
 
       let(:spot_price_history) do
-        double("spot_price_history", spot_price_history: [])
+        [
+          m3xlarge_suse_classic_1c,
+          c4xlarge_linux_vpc_1b,
+          m4large_windows_classic_1c
+        ]
       end
 
       before do
-        allow_any_instance_of(Aws::EC2::Client).to receive(:describe_spot_price_history).and_return(spot_price_history)
+        client.stub_responses(:describe_spot_price_history, spot_price_history: spot_price_history)
       end
 
-      context "when no argument is given" do
-        it "should call DescribeSpotPriceHistory with no argument" do
-          expect_any_instance_of(Aws::EC2::Client).to receive(:describe_spot_price_history).with(empty_args)
-          ec2.spot_price_history
-        end
-      end
-
-      context "when instance_types is given" do
-        let(:instance_types) do
-          ["c4.xlarge"]
-        end
-
-        it "should call DescribeSpotPriceHistory with instance_types" do
-          expect_any_instance_of(Aws::EC2::Client).to receive(:describe_spot_price_history).with(
-            empty_args.merge(instance_types: instance_types)
-          )
-          ec2.spot_price_history(instance_types: instance_types)
-        end
-      end
-
-      context "when max_results is given" do
-        let(:max_results) do
-          10
-        end
-
-        it "should call DescribeSpotPriceHistory with max_results" do
-          expect_any_instance_of(Aws::EC2::Client).to receive(:describe_spot_price_history).with(
-            empty_args.merge(max_results: max_results)
-          )
-          ec2.spot_price_history(max_results: max_results)
-        end
-      end
-
-      context "when product_descriptions is given" do
-        let(:product_descriptions) do
-          [described_class::LINUX_VPC]
-        end
-
-        it "should call DescribeSpotPriceHistory with product_descriptions" do
-          expect_any_instance_of(Aws::EC2::Client).to receive(:describe_spot_price_history).with(
-            empty_args.merge(product_descriptions: product_descriptions)
-          )
-          ec2.spot_price_history(product_descriptions: product_descriptions)
-        end
-      end
-
-      context "when start_time is given" do
-        let(:start_time) do
-          Time.parse("2015-10-06 01:32:57 UTC")
-        end
-
-        it "should call DescribeSpotPriceHistory with start_time" do
-          expect_any_instance_of(Aws::EC2::Client).to receive(:describe_spot_price_history).with(
-            empty_args.merge(start_time: start_time)
-          )
-          ec2.spot_price_history(start_time: start_time)
-        end
-      end
-
-      context "when end_time is given" do
-        let(:end_time) do
-          Time.parse("2015-10-06 01:32:57 UTC")
-        end
-
-        it "should call DescribeSpotPriceHistory with end_time" do
-          expect_any_instance_of(Aws::EC2::Client).to receive(:describe_spot_price_history).with(
-            empty_args.merge(end_time: end_time)
-          )
-          ec2.spot_price_history(end_time: end_time)
-        end
+      it "should return Array of Hash" do
+        expect(ec2.spot_price_history).to eq spot_price_history
       end
     end
   end
