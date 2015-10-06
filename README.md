@@ -34,9 +34,7 @@ Commands:
   spotdog send            # Send spot instance price history
 ```
 
-### `$ spotdog send`
-
-Send spot instance price history
+### Send spot instance price history (`spotdog send`)
 
 ```bash
 $ spotdog help send
