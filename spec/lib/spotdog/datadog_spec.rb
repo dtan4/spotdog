@@ -54,7 +54,7 @@ module Spotdog
       }
     end
 
-    let(:spot_prices) do
+    let(:spot_price_history) do
       [
         c4xlarge_linux_vpc_1b_1,
         c4xlarge_linux_vpc_1b_2,
@@ -63,18 +63,18 @@ module Spotdog
       ]
     end
 
-    describe ".send_prices" do
+    describe ".send_price_history" do
       before do
-        allow_any_instance_of(described_class).to receive(:send_prices).and_return([])
+        allow_any_instance_of(described_class).to receive(:send_price_history).and_return([])
       end
 
-      it "should create new #{described_class} isntance and call #send_prices" do
-        expect_any_instance_of(described_class).to receive(:send_prices)
-        described_class.send_prices(api_key, spot_prices)
+      it "should create new #{described_class} isntance and call #send_price_history" do
+        expect_any_instance_of(described_class).to receive(:send_price_history)
+        described_class.send_price_history(api_key, spot_price_history)
       end
     end
 
-    describe "#send_prices" do
+    describe "#send_price_history" do
       let(:c4xlarge_points) do
         [
           [Time.parse("2015-10-06 05:39:52 UTC"), 0.1436],
@@ -111,7 +111,7 @@ module Spotdog
           "spotinstance.r3_xlarge.suse_vpc.ap_northeast_1c",
           r3xlarge_points
         )
-        datadog.send_prices(spot_prices)
+        datadog.send_price_history(spot_price_history)
       end
     end
   end
