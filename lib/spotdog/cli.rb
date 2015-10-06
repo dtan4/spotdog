@@ -10,7 +10,8 @@ module Spotdog
       spot_price_history = Spotdog::EC2.spot_price_history(
         instance_types: options[:instance_types] ? options[:instance_types].split(",") : nil,
         max_results: options[:max_results],
-        product_descriptions: options[:product_descriptions] ? convert_product_descriptions(options[:product_descriptions].split(",")) : nil,
+        product_descriptions: options[:product_descriptions] ?
+          convert_product_descriptions(options[:product_descriptions].split(",")) : nil,
         start_time: options[:start_time] ? Time.parse(options[:start_time]): nil,
         end_time: options[:end_time] ? Time.parse(options[:end_time]) : nil,
       )
