@@ -6,8 +6,12 @@ module Spotdog
       "apikey"
     end
 
+    let(:prefix) do
+      "spotinstance"
+    end
+
     let(:datadog) do
-      described_class.new(api_key)
+      described_class.new(api_key, prefix)
     end
 
     let(:c4xlarge_linux_vpc_1b_1) do
