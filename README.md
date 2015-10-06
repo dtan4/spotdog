@@ -11,7 +11,7 @@ __Spotdog__ is a command line tool to send EC2 Spot Instance Pricing History to 
 
 (screenshot)
 
-## Supported Ruby qversion
+## Supported Ruby version
 
 Ruby 2.x
 
