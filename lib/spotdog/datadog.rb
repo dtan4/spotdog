@@ -2,8 +2,8 @@ module Spotdog
   class Datadog
     DEFAULT_PREFIX = "spotinstance"
 
-    def self.post_prices(api_key, spot_prices, prefix: DEFAULT_PREFIX)
-      self.new(api_key, prefix).post_prices(spot_prices)
+    def self.send_prices(api_key, spot_prices, prefix: DEFAULT_PREFIX)
+      self.new(api_key, prefix).send_prices(spot_prices)
     end
 
     def initialize(api_key, prefix)
@@ -11,7 +11,7 @@ module Spotdog
       @prefix = prefix
     end
 
-    def post_prices(spot_prices)
+    def send_prices(spot_prices)
       groups_from(spot_prices).each { |metric_name, prices| @client.emit_points(metric_name, points_of(prices)) }
     end
 
