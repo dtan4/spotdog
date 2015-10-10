@@ -9,7 +9,7 @@
 
 __Spotdog__ is a command line tool to send EC2 Spot Instance Pricing History to Datadog. Spotdog enables us to monitor pricing history on Datadog.
 
-(screenshot)
+![status___datadog](https://cloud.githubusercontent.com/assets/680124/10410577/0582f96a-6f81-11e5-8145-519d2382af58.png)
 
 ## Supported Ruby version
 
