@@ -15,7 +15,13 @@ __Spotdog__ is a command line tool to send EC2 Spot Instance Pricing History to 
 
 Ruby 2.x
 
-## Installation
+## Deploy to Heroku
+
+See [__spotdog-heroku__](https://github.com/dtan4/spotdog-heroku) for details.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/dtan4/spotdog-heroku)
+
+## Local Installation
 
 Add this line to your application's Gemfile:
 
