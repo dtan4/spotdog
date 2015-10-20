@@ -55,15 +55,16 @@ export DATADOG_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 $ spotdog help
 Commands:
   spotdog help [COMMAND]  # Describe available commands or one specific command
-  spotdog send            # Send spot instance price history
+  spotdog history         # Send spot instance price history
+  spotdog requests        # Send spot instance requests
 ```
 
-### Send spot instance price history (`spotdog send`)
+### Send spot instance price history (`spotdog history`)
 
 ```bash
-$ spotdog help send
+$ spotdog help history
 Usage:
-  spotdog send
+  spotdog history
 
 Options:
   i, [--instance-types=INSTANCE_TYPES]              # List of instance types
