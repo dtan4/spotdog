@@ -1,13 +1,13 @@
 module Spotdog
   class CLI < Thor
-    desc "send", "Send spot instance price history"
+    desc "history", "Send spot instance price history"
     option :instance_types, type: :string, desc: "List of instance types", aliases: :i
     option :max_results, type: :numeric, desc: "Number of results", aliases: :m
     option :product_descriptions, type: :string, desc: "List of product descriptions", aliases: :p
     option :start_time, type: :string, desc: "The time which to start retriving the prices", aliases: :s
     option :end_time, type: :string, desc: "The time which to stop retriving the prices", aliases: :e
     option :last_minutes, type: :numeric, desc: "The duration in minutes which to retrive the prices", aliases: :l
-    def send
+    def history
       spot_price_history = Spotdog::EC2.spot_price_history(
         instance_types: options[:instance_types] ? options[:instance_types].split(",") : nil,
         max_results: options[:max_results],

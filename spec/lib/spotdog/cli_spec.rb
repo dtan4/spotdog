@@ -14,7 +14,7 @@ module Spotdog
       ENV["DATADOG_API_KEY"] = api_key
     end
 
-    describe "#send" do
+    describe "#history" do
       let(:instance_types) do
         "c4.large,c4.xlarge"
       end
@@ -63,7 +63,7 @@ module Spotdog
           )
           expect(Spotdog::Datadog).to receive(:send_price_history).with(api_key, spot_price_history)
 
-          cli.invoke("send", [], {
+          cli.invoke("history", [], {
             instance_types: instance_types,
             max_results: max_results,
             product_descriptions: os_types,
@@ -93,7 +93,7 @@ module Spotdog
             )
             expect(Spotdog::Datadog).to receive(:send_price_history).with(api_key, spot_price_history)
 
-            cli.invoke("send", [], {
+            cli.invoke("history", [], {
               instance_types: instance_types,
               max_results: max_results,
               product_descriptions: os_types,
