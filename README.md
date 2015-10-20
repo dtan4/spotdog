@@ -61,6 +61,8 @@ Commands:
 
 ### Send spot instance price history (`spotdog history`)
 
+`spotdog history` sends spot instance price history during the specified range.
+
 ```bash
 $ spotdog help history
 Usage:
@@ -87,6 +89,16 @@ Options:
  - The time which to stop retriving the prices, like `2015-10-06 19:00 JST`
 - `-l`, `--last-minutes`
  - The duration in minutes which to retrive the prices.
+
+### Send spot instance requests (`spotdog requests`)
+
+`spotdog requests` sends the number of spot instance requests per status (`open`, `active`, `failed`, `closed`, `canceled`).
+
+```bash
+$ spotdog help requests
+Usage:
+  spotdog requests
+```
 
 ## Development
 
