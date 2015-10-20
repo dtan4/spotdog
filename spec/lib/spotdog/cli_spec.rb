@@ -2,15 +2,19 @@ require "spec_helper"
 
 module Spotdog
   describe CLI do
+    let(:api_key) do
+      "apikey"
+    end
+
     let(:cli) do
       described_class.new
     end
 
-    describe "#send" do
-      let(:api_key) do
-        "apikey"
-      end
+    before do
+      ENV["DATADOG_API_KEY"] = api_key
+    end
 
+    describe "#send" do
       let(:instance_types) do
         "c4.large,c4.xlarge"
       end
@@ -46,7 +50,6 @@ module Spotdog
       before do
         allow(Spotdog::EC2).to receive(:spot_price_history).and_return(spot_price_history)
         allow(Spotdog::Datadog).to receive(:send_price_history)
-        ENV["DATADOG_API_KEY"] = api_key
       end
 
       context "when last_minutes is not specified" do
@@ -100,6 +103,24 @@ module Spotdog
             })
           end
         end
+      end
+    end
+
+    describe "#requests" do
+      let(:spot_instance_requests) do
+        []
+      end
+
+      before do
+        allow(Spotdog::EC2).to receive(:spot_instance_requests).and_return(spot_instance_requests)
+        allow(Spotdog::Datadog).to receive(:send_spot_instance_requests)
+      end
+
+      it "should call modules respectively" do
+        expect(Spotdog::EC2).to receive(:spot_instance_requests).with(no_args)
+        expect(Spotdog::Datadog).to receive(:send_spot_instance_requests).with(api_key, spot_instance_requests)
+
+        cli.invoke("requests", [], {})
       end
     end
   end

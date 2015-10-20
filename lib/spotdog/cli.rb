@@ -16,7 +16,13 @@ module Spotdog
         start_time: parse_start_time(options),
         end_time: parse_end_time(options),
       )
-      Spotdog::Datadog.send_price_history(ENV["DATADOG_API_KEY"], spot_price_history)
+      Spotdog::Datadog.send_price_history(datadog_api_key, spot_price_history)
+    end
+
+    desc "requests", "Send spot instance requests"
+    def requests
+      spot_instance_requests = Spotdog::EC2.spot_instance_requests
+      Spotdog::Datadog.send_spot_instance_requests(datadog_api_key, spot_instance_requests)
     end
 
     private
@@ -27,6 +33,10 @@ module Spotdog
 
     def current_time
       @current_time ||= Time.now
+    end
+
+    def datadog_api_key
+      ENV["DATADOG_API_KEY"]
     end
 
     def parse_start_time(options)
